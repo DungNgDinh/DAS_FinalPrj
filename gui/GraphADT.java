@@ -56,12 +56,28 @@ public class GraphADT extends JFrame {
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
-
-		comboBoxGraph = new JComboBox(new String[] { "Adjacency Lists", "Adjacency Matrices", "Edge List" });
-		panel.add(comboBoxGraph);
-
-		btnDijkstra = new JButton("Dijkstra");
-		panel.add(btnDijkstra);
+		
+				comboBoxGraph = new JComboBox(new String[] { "Adjacency Lists", "Adjacency Matrices", "Edge List" });
+				panel.add(comboBoxGraph);
+				
+						comboBoxGraph.addActionListener(new ActionListener() {
+				
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								if (comboBoxGraph.getSelectedIndex() == 0) {
+									AdjacencyList al = new AdjacencyList(graph);
+									JOptionPane.showMessageDialog(null, al.print(), "Adjacency List", JOptionPane.INFORMATION_MESSAGE);
+								} else if (comboBoxGraph.getSelectedIndex() == 1) {
+									AdjacencyMatrix am = new AdjacencyMatrix(graph);
+									JOptionPane.showMessageDialog(null, am.print(), "Adjacency Matrix",
+											JOptionPane.INFORMATION_MESSAGE);
+								} else if (comboBoxGraph.getSelectedIndex() == 2) {
+									EdgeList el = new EdgeList(graph);
+									JOptionPane.showMessageDialog(null, el.print(), "Egde List", JOptionPane.INFORMATION_MESSAGE);
+								}
+				
+							}
+						});
 
 		btnReset = new JButton("Reset");
 		panel.add(btnReset);
@@ -74,25 +90,9 @@ public class GraphADT extends JFrame {
 
 		graphPanel = new PanelGraph(graph);
 		contentPane.add(graphPanel, BorderLayout.CENTER);
-
-		comboBoxGraph.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (comboBoxGraph.getSelectedIndex() == 0) {
-					AdjacencyList al = new AdjacencyList(graph);
-					JOptionPane.showMessageDialog(null, al.print(), "Adjacency List", JOptionPane.INFORMATION_MESSAGE);
-				} else if (comboBoxGraph.getSelectedIndex() == 1) {
-					AdjacencyMatrix am = new AdjacencyMatrix(graph);
-					JOptionPane.showMessageDialog(null, am.print(), "Adjacency Matrix",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else if (comboBoxGraph.getSelectedIndex() == 2) {
-					EdgeList el = new EdgeList(graph);
-					JOptionPane.showMessageDialog(null, el.print(), "Egde List", JOptionPane.INFORMATION_MESSAGE);
-				}
-
-			}
-		});
+		
+				btnDijkstra = new JButton("Dijkstra");
+				contentPane.add(btnDijkstra, BorderLayout.SOUTH);
 
 		btnDijkstra.addActionListener(new ActionListener() {
 
