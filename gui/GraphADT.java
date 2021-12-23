@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -27,6 +28,8 @@ import models.Edge;
 import models.EdgeList;
 import models.Node;
 import models.Graph;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class GraphADT extends JFrame {
 
@@ -34,6 +37,7 @@ public class GraphADT extends JFrame {
 	private JComboBox comboBoxGraph;
 	private JButton btnReset;
 	private JPanel panel_1, graphPanel;
+
 
 	private DrawUtils drawUtils;
 	private Graph graph = new Graph();
@@ -43,6 +47,18 @@ public class GraphADT extends JFrame {
 	private JButton btnInfo;
 	private JButton btnBack;
 	JButton btnDijkstra;
+	private JMenuBar menuBar;
+	private JMenu representationsMenu;
+	private JMenuItem adjacencyListMenuItem;
+	private JMenuItem adjacencyMatricesMenuItem;
+	private JMenuItem edgeListMenuItem;
+	private JMenu controlMenu;
+	private JMenuItem resetMenuItem;
+	private JMenuItem exitMenuItem;
+	private JMenuItem changePropertiesMenuItem;
+	private JMenu infoMenu;
+	private JMenuItem helpMenuItem;
+	private JMenuItem aboutMenuItem;
 
 	/**
 	 * Create the frame.
@@ -50,43 +66,127 @@ public class GraphADT extends JFrame {
 	public GraphADT() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 496);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		controlMenu = new JMenu("File");
+		menuBar.add(controlMenu);
+		
+		resetMenuItem = new JMenuItem("Reset");
+		resetMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				((PanelGraph) graphPanel).reset();
+			}
+		});
+		controlMenu.add(resetMenuItem);
+		
+		changePropertiesMenuItem = new JMenuItem("Change properties");
+		changePropertiesMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GraphDriver main = new GraphDriver();
+				main.setVisible(true);
+				setVisible(false);
+			}
+		});
+		controlMenu.add(changePropertiesMenuItem);
+		
+		exitMenuItem = new JMenuItem("Exit");
+		exitMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		controlMenu.add(exitMenuItem);
+		
+		representationsMenu = new JMenu("Graph Representation");
+		menuBar.add(representationsMenu);
+		
+		adjacencyListMenuItem = new JMenuItem("Adjacency Lists");
+		representationsMenu.add(adjacencyListMenuItem);
+		adjacencyListMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+					AdjacencyList al = new AdjacencyList(graph);
+					JOptionPane.showMessageDialog(null, al.print(), "Adjacency List", JOptionPane.INFORMATION_MESSAGE);
+
+
+			}
+		});
+		
+		adjacencyMatricesMenuItem = new JMenuItem("Adjacency Matrices");
+		adjacencyMatricesMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AdjacencyMatrix am = new AdjacencyMatrix(graph);
+				JOptionPane.showMessageDialog(null, am.print(), "Adjacency Matrix",
+				JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		representationsMenu.add(adjacencyMatricesMenuItem);
+		
+		edgeListMenuItem = new JMenuItem("Edge List");
+		edgeListMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EdgeList el = new EdgeList(graph);
+				JOptionPane.showMessageDialog(null, el.print(), "Egde List", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		representationsMenu.add(edgeListMenuItem);
+		
+		infoMenu = new JMenu("Info");
+		menuBar.add(infoMenu);
+		
+		helpMenuItem = new JMenuItem("Help");
+		helpMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,
+						"Click on empty space to create new node\n" + "Drag from node to node to create an edge\n"
+								+ "Click on edges to set the weight\n\n" + "Combinations:\n"
+								+ "Shift + Left Click       :    Set node as source\n"
+								+ "Shift + Right Click     :    Set node as destination\n"
+								+ "Ctrl  + Drag                :    Reposition Node\n"
+								+ "Ctrl  + Click                :    Get Path of Node\n"
+								+ "Ctrl  + Shift + Click   :    Delete Node/Edge\n");
+
+			}
+		});
+		infoMenu.add(helpMenuItem);
+		
+		aboutMenuItem = new JMenuItem("About us");
+		aboutMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,
+						"This a group project made by us:\n" + "Vu Minh Huy - Designer\n"
+								+ "Nam -\n" + "Duy - \n");
+
+			}
+		});
+		infoMenu.add(aboutMenuItem);
+
+		
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
-		
-				comboBoxGraph = new JComboBox(new String[] { "Adjacency Lists", "Adjacency Matrices", "Edge List" });
-				panel.add(comboBoxGraph);
-				
-						comboBoxGraph.addActionListener(new ActionListener() {
-				
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								if (comboBoxGraph.getSelectedIndex() == 0) {
-									AdjacencyList al = new AdjacencyList(graph);
-									JOptionPane.showMessageDialog(null, al.print(), "Adjacency List", JOptionPane.INFORMATION_MESSAGE);
-								} else if (comboBoxGraph.getSelectedIndex() == 1) {
-									AdjacencyMatrix am = new AdjacencyMatrix(graph);
-									JOptionPane.showMessageDialog(null, am.print(), "Adjacency Matrix",
-											JOptionPane.INFORMATION_MESSAGE);
-								} else if (comboBoxGraph.getSelectedIndex() == 2) {
-									EdgeList el = new EdgeList(graph);
-									JOptionPane.showMessageDialog(null, el.print(), "Egde List", JOptionPane.INFORMATION_MESSAGE);
-								}
-				
-							}
-						});
-
-		btnReset = new JButton("Reset");
-		panel.add(btnReset);
-
-		btnInfo = new JButton("Info");
-		panel.add(btnInfo);
-
-		btnBack = new JButton("Back");
-		panel.add(btnBack);
 
 		graphPanel = new PanelGraph(graph);
 		contentPane.add(graphPanel, BorderLayout.CENTER);
@@ -108,6 +208,7 @@ public class GraphADT extends JFrame {
 
 			}
 		});
+		/*
 		btnInfo.addActionListener(new ActionListener() {
 
 			@Override
@@ -142,6 +243,7 @@ public class GraphADT extends JFrame {
 				((PanelGraph) graphPanel).reset();
 			}
 		});
+		*/
 	}
 
 	/*
