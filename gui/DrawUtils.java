@@ -5,6 +5,8 @@ import models.Node;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.*;
+import javax.swing.*;
 import java.util.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class DrawUtils {
 	private static int radius = 20;
 	private boolean weighted = GraphDriver.weighted, unweighted = GraphDriver.unweighted, directed = GraphDriver.directed,
 			undirected = GraphDriver.undirected;
+	
 
 	public DrawUtils(Graphics2D graphics2D) {
 		g = graphics2D;
@@ -37,8 +40,7 @@ public class DrawUtils {
 		int boundX = (int) p.getX();
 		int boundY = (int) p.getY();
 
-		return (x <= boundX + 2.5 * radius && x >= boundX - 2.5 * radius)
-				&& (y <= boundY + 2.5 * radius && y >= boundY - 2.5 * radius);
+		return (x <= boundX + 2.5 * radius && x >= boundX - 2.5 * radius) && (y <= boundY + 2.5 * radius && y >= boundY - 2.5 * radius);
 	}
 
 	// check canh
@@ -131,6 +133,25 @@ public class DrawUtils {
 		g.setColor(parseColor("#555555"));// xanh xam
 		drawBaseEdge(edge);
 	}
+	
+	
+	public void drawArrow(Point tip, Point tail) {
+		double phi = Math.toRadians(40);;
+		int barb = 10;
+
+        double dy = tip.y - tail.y;
+        double dx = tip.x - tail.x;
+        double theta = Math.atan2(dy, dx);
+        //System.out.println("theta = " + Math.toDegrees(theta));
+        double x, y, rho = theta + phi;
+        for(int j = 0; j < 2; j++)
+        {
+            x = tip.x  - barb * Math.cos(rho);
+            y = tip.y - barb * Math.sin(rho);
+            g.draw(new Line2D.Double(tip.x, tip.y, x, y));
+            rho = theta - phi;
+        }
+	}
 
 	// ve canh
 	public void drawBaseEdge(Edge edge) {
@@ -138,6 +159,12 @@ public class DrawUtils {
 		Point to = edge.getNodeTwo().getCoord();
 		g.setStroke(new BasicStroke(3));
 		g.drawLine(from.x, from.y, to.x, to.y);
+		if(directed) {
+			Point halfPoint = new Point((from.x + to.x) / 2, (from.y + to.y) / 2);
+			Point quarterPoint = new Point((halfPoint.x + to.x) / 2, (halfPoint.y + to.y) / 2);
+		
+			drawArrow(quarterPoint, from);
+		}
 	}
 
 	public void drawHalo(Node node) {

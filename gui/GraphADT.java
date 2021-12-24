@@ -44,8 +44,6 @@ public class GraphADT extends JFrame {
 
 	private boolean weighted = GraphDriver.weighted, unweighted = GraphDriver.unweighted, directed = GraphDriver.directed,
 			undirected = GraphDriver.undirected;
-	private JButton btnInfo;
-	private JButton btnBack;
 	JButton btnDijkstra;
 	private JMenuBar menuBar;
 	private JMenu representationsMenu;
@@ -208,42 +206,7 @@ public class GraphADT extends JFrame {
 
 			}
 		});
-		/*
-		btnInfo.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null,
-						"Click on empty space to create new node\n" + "Drag from node to node to create an edge\n"
-								+ "Click on edges to set the weight\n\n" + "Combinations:\n"
-								+ "Shift + Left Click       :    Set node as source\n"
-								+ "Shift + Right Click     :    Set node as destination\n"
-								+ "Ctrl  + Drag                :    Reposition Node\n"
-								+ "Ctrl  + Click                :    Get Path of Node\n"
-								+ "Ctrl  + Shift + Click   :    Delete Node/Edge\n");
-
-			}
-		});
-
-		btnBack.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GraphDriver main = new GraphDriver();
-				main.setVisible(true);
-				setVisible(false);
-			}
-		});
-
-		btnReset.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				((PanelGraph) graphPanel).reset();
-			}
-		});
-		*/
 	}
 
 	/*
