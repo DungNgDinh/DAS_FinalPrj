@@ -168,18 +168,18 @@ public class DrawUtils {
 	}
 
 	public void drawHalo(Node node) {
-		g.setColor(parseColor("#E91E63"));// do
+		g.setColor(parseColor("#CC0000"));// do
 		radius += 5;
 		g.fillOval(node.getX() - radius, node.getY() - radius, 2 * radius, 2 * radius);
 		radius -= 5;
 	}
 
 	public void drawSourceNode(Node node) {
-		g.setColor(parseColor("#00BCD4"));// xanh
+		g.setColor(parseColor("#3D85C6"));// xanh
 		g.fillOval(node.getX() - radius, node.getY() - radius, 2 * radius, 2 * radius);
 
 		radius -= 5;
-		g.setColor(parseColor("#B2EBF2"));
+		g.setColor(parseColor("#F3F6F4"));
 		g.fillOval(node.getX() - radius, node.getY() - radius, 2 * radius, 2 * radius);
 
 		radius += 5;
@@ -188,28 +188,28 @@ public class DrawUtils {
 	}
 
 	public void drawDestinationNode(Node node) {
-		g.setColor(parseColor("#F44336"));// do
+		g.setColor(parseColor("#6aa84f"));// do
 		g.fillOval(node.getX() - radius, node.getY() - radius, 2 * radius, 2 * radius);
 
 		radius -= 5;
-		g.setColor(parseColor("#FFCDD2"));
+		g.setColor(parseColor("#b6d7a8"));
 		g.fillOval(node.getX() - radius, node.getY() - radius, 2 * radius, 2 * radius);
 
 		radius += 5;
-		g.setColor(parseColor("#F44336"));
+		g.setColor(parseColor("#585f65"));
 		drawCentreText(String.valueOf(node.getId()), node.getX(), node.getY());
 	}
 
 	public void drawNode(Node node) {
-		g.setColor(parseColor("#9C27B0"));// tim
+		g.setColor(parseColor("#ffbbdd"));// tim
 		g.fillOval(node.getX() - radius, node.getY() - radius, 2 * radius, 2 * radius);
 
 		radius -= 5;
-		g.setColor(parseColor("#E1BEE7"));
+		g.setColor(parseColor("#fef4f4"));
 		g.fillOval(node.getX() - radius, node.getY() - radius, 2 * radius, 2 * radius);
 
 		radius += 5;
-		g.setColor(parseColor("#9C27B0"));
+		g.setColor(parseColor("#b00b69"));
 		drawCentreText(String.valueOf(node.getId()), node.getX(), node.getY());
 	}
 

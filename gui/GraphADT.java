@@ -172,7 +172,7 @@ public class GraphADT extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,
 						"This a group project made by us:\n" + "Vu Minh Huy - Designer\n"
-								+ "Nam -\n" + "Duy - \n");
+								+ "Mai Van Nam - Graph Implement\n" + "Nguyen Dinh Dung  - Djikstra\n");
 
 			}
 		});
