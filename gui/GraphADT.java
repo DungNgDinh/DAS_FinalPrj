@@ -177,6 +177,24 @@ public class GraphADT extends JFrame {
 			}
 		});
 		infoMenu.add(aboutMenuItem);
+		
+				btnDijkstra = new JButton("Dijkstra");
+				menuBar.add(btnDijkstra);
+				
+						btnDijkstra.addActionListener(new ActionListener() {
+				
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								DijkstraAlgorithm dijkstraAlgorithm = new DijkstraAlgorithm(graph);
+								try {
+									dijkstraAlgorithm.run();
+									((PanelGraph) graphPanel).setPath(dijkstraAlgorithm.getDestinationPath());
+								} catch (IllegalStateException ise) {
+									JOptionPane.showMessageDialog(null, ise.getMessage());
+								}
+				
+							}
+						});
 
 		
 		contentPane = new JPanel();
@@ -188,24 +206,6 @@ public class GraphADT extends JFrame {
 
 		graphPanel = new PanelGraph(graph);
 		contentPane.add(graphPanel, BorderLayout.CENTER);
-		
-				btnDijkstra = new JButton("Dijkstra");
-				contentPane.add(btnDijkstra, BorderLayout.SOUTH);
-
-		btnDijkstra.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DijkstraAlgorithm dijkstraAlgorithm = new DijkstraAlgorithm(graph);
-				try {
-					dijkstraAlgorithm.run();
-					((PanelGraph) graphPanel).setPath(dijkstraAlgorithm.getDestinationPath());
-				} catch (IllegalStateException ise) {
-					JOptionPane.showMessageDialog(null, ise.getMessage());
-				}
-
-			}
-		});
 
 	}
 
